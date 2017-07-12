@@ -2,7 +2,7 @@ import netifaces
 
 
 def get_network_interface_list():
-    pass
+    return netifaces.interfaces()
 
 
 def get_connected_interface_name():

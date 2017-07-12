@@ -14,7 +14,13 @@
         <div class="card">
             <div class="card-block">
                 <a href="#">
-                    <h4 class="card-title">{{ object }}</h4>
+                    <h4 class="card-title">{{ object.1 }}
+                        {% if object.0 %}
+                            <button class="btn btn-sm btn-success">Wireless Interface</button>
+                            <a class="btn btn-lg btn-info float-sm-right" href="#">Scan for Rouge</a>
+                        {% endif %}
+                    </h4>
+
                 </a>
 
             </div>
