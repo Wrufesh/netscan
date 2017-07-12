@@ -18,11 +18,13 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from netutil.views import index
+from netutil.views import index, interface_list_view
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='home'),
+    url(r'^interfaces$', interface_list_view, name='interface-list'),
+
 ]
 
 

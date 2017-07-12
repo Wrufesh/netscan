@@ -5,15 +5,49 @@
 {% block breadcrumbs %}
 {% endblock %}
 {% block content %}
-
     <div class="card">
-
         <div class="card-block">
-            <div class="card-header">
-                Lecture summary notes
-            </div>
-
+            {% if connection_detail %}
+                <h3 class="card-title text-primary card-header">Connection Detail</h3>
+                <div class="card-block">
+                    <p class="card-text ">IP ADDRESS : {{ connection_detail.0.addr }}</p>
+                    <p class="card-text ">NETMASK : {{ connection_detail.0.netmask }}</p>
+                    <p class="card-text ">BROADCAST : {{ connection_detail.0.broadcast }}</p>
+                </div>
+            {% else %}
+                <h3 class="card-title text-danger text-center">Computer not connected to any network.</h3>
+            {% endif %}
         </div>
+    </div>
 
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-block">
+                    <h3 class="card-title text-primary card-header">Scan For Rouge APs</h3>
+                    <div class="card-block">
+
+                        <p class="card-text text-info">This will monitor the possible 'Rouge Access Points' in order to
+                            protect from 'Evil Twin Attack'</p>
+                        <a href="{% url 'interface-list' %}" class="btn btn-primary">Start Scanning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-block">
+                    <h3 class="card-title text-primary card-header">Connected network hosts detail.</h3>
+                    <div class="card-block">
+
+                        <p class="card-text text-info">See detailed information about the host of the network you are
+                            connected
+                            in.</p>
+                        <a href="#" class="btn btn-primary">Start Scanning</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

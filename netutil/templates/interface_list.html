@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block title %} Lectures {% endblock %}
+
+{% block breadcrumbs %}
+    <a class="breadcrumb-item active" href="{% url 'interface-list' %}">Interface List</a>
+{% endblock %}
+
+{% block content %}
+
+    {% for object in object_list %}
+
+        <div class="card">
+            <div class="card-block">
+                <a href="#">
+                    <h4 class="card-title">{{ object }}</h4>
+                </a>
+
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock %}
