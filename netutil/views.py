@@ -30,3 +30,9 @@ def connected_hosts(request):
         context['error_message'] = hosts_detail
 
     return render(request, 'connected_hosts.html', context)
+
+
+def scan_for_rouge(request, interface):
+    context = dict()
+    context['sample_to_remove'] = interface
+    return render(request, 'rouge.html', context)

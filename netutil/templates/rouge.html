@@ -1,0 +1,13 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block title %} Evil Twin Detector {% endblock %}
+
+{% block breadcrumbs %}
+    <a class="breadcrumb-item active" href="#">Evil Twin Detector</a>
+{% endblock %}
+
+{% block content %}
+    {{ sample_to_remove }}
+
+{% endblock %}
