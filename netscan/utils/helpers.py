@@ -26,7 +26,9 @@ def get_connected_network_detail():
 def get_connected_hosts_detail():
     netscan = Netscan()
     if get_connected_interface_name():
-        output_list = netscan.parser("nmap", "-O", get_connected_interface_name())
+        w = netscan.parser("ifconfig")
+        x = netscan.getIpMask(w)
+        output_list = netscan.parser("nmap", "-O", x[1])
         if not isinstance(output_list, list):
             return output_list
         else:

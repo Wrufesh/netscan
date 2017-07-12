@@ -4,6 +4,8 @@ import subprocess
 class Netscan:
     def parser(self, *cmd):
         try:
+            # import ipdb
+            # ipdb.set_trace()
             self.output = subprocess.check_output(cmd)
         except:
             return """"
@@ -41,7 +43,7 @@ class Netscan:
         binary = ''
         subnet = 0
         for j in range(10, len(lyst)):
-            # self.print(lyst[j-10])
+            # print(lyst[j-10])
             if lyst[j - 2] == 'broadcast' and lyst[j - 6] == 'netmask' and lyst[j - 10] == 'inet':
                 self.inb_list.append(lyst[j - 8])
                 self.inb_list.append(lyst[j - 4])
@@ -66,6 +68,8 @@ class Netscan:
         return (True, self.ip_mask)
 
     def scanResult(self, list1):
+        # import ipdb
+        # ipdb.set_trace()
         host_count = 0
         result_list = []
         for cnt in range(0, len(list1)):
@@ -73,22 +77,24 @@ class Netscan:
             if list1[cnt] == "Nmap" and list1[cnt + 2] == "scan" and list1[cnt + 4] == "report" and list1[
                         cnt + 6] == "for":
                 host_count += 1
+                result = dict()
+                result_list.append(result)
                 cnt1 = 8
                 ip_addr = ''
                 while list1[cnt + cnt1] != "\n":
                     if type(list1[cnt + cnt1]) == str:
                         ip_addr = ip_addr + list1[cnt + cnt1]
                     cnt1 = cnt1 + 1
-                # self.print('\n\n HOST %s IS %s \n' % (host_count, ip_addr))
-                result['ip_address'] = ip_addr
+                print('\n\n HOST %s IS %s \n' % (host_count, ip_addr))
+                result_list[-1]['ip_address'] = ip_addr
 
             elif list1[cnt] == "PORT" and list1[cnt + 2] == "STATE" and list1[cnt + 4] == "SERVICE":
-                result['post_state_service'] = []
+                result_list[-1]['post_state_service'] = []
                 cnt2 = 6
                 openPort = True
                 value = True
-                # self.print('  PORT', 'STATE'.rjust(15), 'SERVICE'.rjust(15))
-                # self.print("\t\t PORT \t\t\t\t STATE \t\t\t SERVICE \n")
+                # print('  PORT', 'STATE'.rjust(15), 'SERVICE'.rjust(15))
+                print("\t\t PORT \t\t\t\t STATE \t\t\t SERVICE \n")
                 while value == True and cnt2 % 6 == 0:
                     try:
                         check = int(list1[cnt + cnt2][0])
@@ -96,9 +102,9 @@ class Netscan:
                     except:
                         value = False
                         break
-                    # self.print(' ', list1[cnt + cnt2], list1[cnt + cnt2 + 2].rjust(13), list1[cnt + cnt2 + 4].rjust(13))
-                    # self.print("\t\t %s \t\t\t %s \t\t\t %s \n" % (
-                    result['post_state.service'].append(list1[cnt + cnt2], list1[cnt + cnt2 + 2], list1[cnt + cnt2 + 4])
+                    # print(' ', list1[cnt + cnt2], list1[cnt + cnt2 + 2].rjust(13), list1[cnt + cnt2 + 4].rjust(13))
+                    print("\t\t %s \t\t\t %s \t\t\t %s \n" % (list1[cnt + cnt2], list1[cnt + cnt2 + 2], list1[cnt + cnt2 + 4]))
+                    result_list[-1]['post_state_service'].append((list1[cnt + cnt2], list1[cnt + cnt2 + 2], list1[cnt + cnt2 + 4]))
                     cnt2 += 6
 
             elif list1[cnt] == "MAC" and list1[cnt + 2] == "Address:":
@@ -109,8 +115,8 @@ class Netscan:
                         list1[cnt + cnt1] = ' '
                     mac_addr += list1[cnt + cnt1]
                     cnt1 = cnt1 + 1
-                # self.print(" MAC ADDRESS %s \n" % mac_addr)
-                result['mac_address'] = mac_addr
+                print(" MAC ADDRESS %s \n" % mac_addr)
+                result_list[-1]['mac_address'] = mac_addr
             elif list1[cnt] == "OS" and list1[cnt + 2] == "details:":
                 cnt1 = 4
                 os = ''
@@ -119,8 +125,8 @@ class Netscan:
                         list1[cnt + cnt1] = ' '
                     os += list1[cnt + cnt1]
                     cnt1 = cnt1 + 1
-                # self.print(" OS DETAIL  %s  \n " % os)
-                result['os'] = os
+                print(" OS DETAIL  %s  \n " % os)
+                result_list[-1]['os'] = os
             elif list1[cnt] == "Device" and list1[cnt + 2] == "type:":
                 cnt1 = 4
                 dev_type = ''
@@ -129,11 +135,11 @@ class Netscan:
                         list1[cnt + cnt1] = ' '
                     dev_type += list1[cnt + cnt1]
                     cnt1 = cnt1 + 1
-                # self.print(" DEVICE TYPE %s \n" % dev_type)
-                result['device'] = dev_type
+                print(" DEVICE TYPE %s \n" % dev_type)
+                result_list[-1]['device'] = dev_type
 
-            result_list.append(result)
-        # self.print("\n\n YOU HAVE %s HOST(S) UP" % host_count)
+            # result_list.append(result)
+        print("\n\n YOU HAVE %s HOST(S) UP" % host_count)
         return result_list
 
 

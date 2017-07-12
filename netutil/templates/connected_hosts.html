@@ -11,10 +11,61 @@
     {% if error_message %}
         <div class="card">
             <div class="card-block">
-                <h3 class="card-title text-danger card-header">Computer not connected to any network.</h3>
+                <h3 class="card-title text-danger card-header">{{ error_message }}</h3>
             </div>
         </div>
     {% endif %}
     {% if connected_hosts %}
+        <div class="card">
+            <div class="card-block">
+                <h3 class="card-title text-primary card-header">You have {{ connected_hosts | length }} host(s) up.</h3>
+            </div>
+        </div>
+        {% for host in connected_hosts %}
+            <div class="card">
+                <div class="card-block">
+                    <h3 class="card-title text-primary card-header"> IP ADDRESS: {{ host.ip_address }}</h3>
+
+                    {# Post State Service Block#}
+                    <div class="card-block">
+
+                        <ul class="list-group">
+                            <li class="list-group-item row header">
+                                <div class="col-md-3">
+                                    PORT
+                                </div>
+                                <div class="col-md-3">
+                                    STATE
+                                </div>
+                                <div class="col-md-3">
+                                    SERVICE
+                                </div>
+                            </li>
+                            {% for object in host.post_state_service %}
+                                <li class="list-group-item row">
+                                    <div class="col-md-3">
+                                        {{ object.0 }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{ object.1 }}
+                                    </div>
+                                    <div class="col-md-3">
+                                        {{ object.2 }}
+                                    </div>
+                                </li>
+                            {% endfor %}
+
+                        </ul>
+
+                    </div>
+
+                    <h3 class="card-title text-primary card-header"> MAC ADDRESS: {{ host.mac_address|default: "----" }}</h3>
+                    <h3 class="card-title text-primary card-header"> RUNNING OS: {{ host.os|default: "----" }}</h3>
+                    <h3 class="card-title text-primary card-header"> DEVICE: {{ host.device|default: "----" }}</h3>
+
+                </div>
+
+            </div>
+        {% endfor %}
     {% endif %}
 {% endblock %}
