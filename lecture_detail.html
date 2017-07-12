@@ -1,0 +1,36 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block title %} {{ object }} {% endblock %}
+{% block breadcrumbs %}
+    <a class="breadcrumb-item" href="{% url 'lecture-list' %}">Lecture List</a>
+    <a class="breadcrumb-item active" href="{% url 'lecture-detail' object.id %}">Lecture Detail</a>
+{% endblock %}
+{% block content %}
+
+    <div class="card">
+
+
+        {% if object.video.url %}
+
+            <div class="card-block">
+                <div class="card-header">
+                    Lecture Video | Date: {{ object.date }}
+                </div>
+                <video autoplay controls>
+                    <source src="{{ object.video.url }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        {% endif %}
+
+        <div class="card-block">
+            <div class="card-header">
+                Lecture summary notes
+            </div>
+            <p class="card-text">{{ object.content | safe }}</p>
+
+        </div>
+
+    </div>
+{% endblock %}

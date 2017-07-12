@@ -1,0 +1,23 @@
+{
+  "name": "hotc",
+  "authors": [
+    "Rupesh Singh"
+  ],
+  "description": "Human Organ Transplant Centre",
+  "main": "",
+  "keywords": [
+    "hotc"
+  ],
+  "license": "WTFPL",
+  "homepage": "https://hotc.gov.np",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1"
+  }
+}

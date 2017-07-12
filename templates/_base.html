@@ -1,0 +1,44 @@
+{% load staticfiles %}
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+        {% block whole_title %}{% block title %}{% endblock title %} | E-ClassRoom{% endblock whole_title %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#7b1b1b">
+    <link rel="stylesheet" href="{% static 'bootstrap/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    {% block extrahead %}
+    {% endblock %}
+</head>
+<body {% block body_attrs %}{% endblock %} itemscope itemtype="https://schema.org/WebPage">
+
+{% include '_header.html' %}
+
+<div class="{% block container-class %}container{% endblock %} content">
+    {% block breadcrumbs_container %}
+    <ol class="breadcrumb">
+        <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+        {% block breadcrumbs %}
+        {% endblock %}
+    </ol>
+{% endblock %}
+
+    {% block content %}
+    {% endblock %}
+</div>
+
+{% include '_footer.html' %}
+
+<script src="{% static 'bower/jquery/dist/jquery.js' %}"></script>
+<script src="{% static 'js/tether.js' %}"></script>
+<script src="{% static 'bootstrap/bootstrap.js' %}"></script>
+
+{% block extrabody %}
+{% endblock %}
+
+</body>
+</html>
