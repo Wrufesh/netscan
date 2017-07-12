@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block title %} Lectures {% endblock %}
+
+{% block breadcrumbs %}
+    <a class="breadcrumb-item active" href="{% url 'connected-hosts' %}">Connected hosts detail page</a>
+{% endblock %}
+
+{% block content %}
+    {% if error_message %}
+        <div class="card">
+            <div class="card-block">
+                <h3 class="card-title text-danger card-header">Computer not connected to any network.</h3>
+            </div>
+        </div>
+    {% endif %}
+    {% if connected_hosts %}
+    {% endif %}
+{% endblock %}

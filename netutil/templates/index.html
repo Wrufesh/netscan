@@ -15,7 +15,7 @@
                     <p class="card-text ">BROADCAST : {{ connection_detail.0.broadcast }}</p>
                 </div>
             {% else %}
-                <h3 class="card-title text-danger text-center">Computer not connected to any network.</h3>
+                <h3 class="card-title text-danger card-header">Computer not connected to any network.</h3>
             {% endif %}
         </div>
     </div>
@@ -44,7 +44,7 @@
                         <p class="card-text text-info">See detailed information about the host of the network you are
                             connected
                             in.</p>
-                        <a href="#" class="btn btn-primary">Start Scanning</a>
+                        <a href="{% url 'connected-hosts' %}" class="btn btn-primary">Start Scanning</a>
                     </div>
                 </div>
             </div>

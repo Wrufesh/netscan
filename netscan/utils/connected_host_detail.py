@@ -2,9 +2,6 @@ import subprocess
 
 
 class Netscan:
-    def __init__(self, addstr):
-        self.print = addstr
-
     def parser(self, *cmd):
         try:
             self.output = subprocess.check_output(cmd)
@@ -52,7 +49,7 @@ class Netscan:
         # print(self.inb_list)
         # Checking for the connection
         if len(self.inb_list) == 0:
-            return (False, "Not connected to the internet")
+            return (False, "Not connected_hosts.html to the internet")
         # Extracting address in ip/mask form and returning it
         self.netmask = self.inb_list[1]
         for k in range(0, len(self.netmask)):

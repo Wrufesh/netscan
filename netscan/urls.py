@@ -18,15 +18,14 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from netutil.views import index, interface_list_view
+from netutil.views import index, interface_list_view, connected_hosts
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='home'),
     url(r'^interfaces$', interface_list_view, name='interface-list'),
-
-]
-
+    url(r'^network-hosts$', connected_hosts, name='connected-hosts')
+    ]
 
 if settings.DEBUG:
     from django.conf.urls.static import static
