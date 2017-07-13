@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^interfaces$', interface_list_view, name='interface-list'),
     url(r'^network-hosts$', connected_hosts, name='connected-hosts'),
     url(r'^evil-twin/(?P<interface>[\w-]+)/$', scan_for_rouge, name='evil-twin'),
-    url(r'^start-monitor/(?P<monitor_interface>[\w-]+)/$', scan_for_rouge, name='evil-twin')
+    url(r'^start-monitor/(?P<monitor_interface>[\w-]+)/$', scan_for_rouge, name='start-monitor')
     ]
 
 if settings.DEBUG:

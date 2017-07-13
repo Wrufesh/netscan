@@ -50,15 +50,16 @@ def connected_hosts(request):
 def scan_for_rouge(request, interface):
     context = dict()
     if turn_on_monitor_mode(interface)[0]:
-        pass
+        # todo start monitor celery task
+        return redirect('start_monitor', monitor_interface=turn_on_monitor_mode(interface)[1])
     else:
         messages.info(
             request,
             "Monitor mode not supported for the interface '%s'" % interface
         )
         return redirect('interface-list')
-    context['output_list'] = turn_on_monitor_mode(interface)
-    return render(request, 'rouge.html', context)
 
-def start_monitor(reuest, monitor_interface):
-    pass
+
+def start_monitor(request, monitor_interface):
+    context = dict()
+    return render(request, 'rouge.html', context)

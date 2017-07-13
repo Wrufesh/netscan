@@ -8,3 +8,5 @@ airmon-ng start wlan3
 airodump-ng mon0
 
 airodump-ng [INTERFACE] -w [OUTPUT-PREFIX] --write-interval 30 -o csv
+
+celery -A netscan worker -l info
