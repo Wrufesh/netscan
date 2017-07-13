@@ -1,4 +1,6 @@
 import netifaces
+import re
+import subprocess
 
 from netscan.utils.connected_host_detail import Netscan
 
@@ -33,3 +35,30 @@ def get_connected_hosts_detail():
             return output_list
         else:
             return netscan.scanResult(output_list)
+
+
+def get_monitor_interface_name(line):
+    m = re.search('on.\[.+\].+\)\\n', line)
+    if m:
+        name = m.group(0).split(']')[1].split(')')[0]
+        return name
+    else:
+        return None
+
+
+def turn_on_monitor_mode(interface):
+    cmd = subprocess.Popen(
+        'airmon-ng start %s' % interface,
+        shell=True,
+        stdout=subprocess.PIPE,
+        universal_newlines = True
+    )
+    output_list = []
+    for line in cmd.stdout:
+        if line.startswith('\t\t(') and 'enabled' in line:
+            monitor_interface_name = get_monitor_interface_name(line)
+            if monitor_interface_name:
+                return (True, monitor_interface_name)
+            else:
+                break
+    return (False, None)

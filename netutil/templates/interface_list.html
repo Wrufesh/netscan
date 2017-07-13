@@ -17,8 +17,8 @@
                     <h4 class="card-title">{{ object.1 }}
                         {% if object.0 %}
                             <button class="btn btn-sm btn-success">Wireless Interface</button>
-                            <a class="btn btn-lg btn-info float-sm-right" href="{% url 'evil-twin' object.1 %}">Scan for Rouge</a>
                         {% endif %}
+                        <a class="btn btn-lg btn-info float-sm-right" href="{% url 'evil-twin' object.1 %}">Scan for Rouge</a>
                     </h4>
 
                 </a>

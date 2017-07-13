@@ -2,7 +2,16 @@ from django.shortcuts import render
 
 # Create your views here.
 from netscan.utils.helpers import get_connected_interface_name, get_connected_network_detail, \
-    get_network_interface_list, get_connected_hosts_detail
+    get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode
+
+interface_model = {
+    'interfaces' : [],
+    # interfaces list example
+    # {
+    #     'name': '',
+    #     'monitor_mode':
+    # }
+}
 
 
 def index(request):
@@ -34,5 +43,8 @@ def connected_hosts(request):
 
 def scan_for_rouge(request, interface):
     context = dict()
-    context['sample_to_remove'] = interface
+    # if turn_on_monitor_mode(interface):
+    #     pass
+    # else
+    context['output_list'] = turn_on_monitor_mode(interface)
     return render(request, 'rouge.html', context)
