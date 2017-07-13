@@ -22,13 +22,19 @@
 
 <div class="{% block container-class %}container{% endblock %} content">
     {% block breadcrumbs_container %}
-    <ol class="breadcrumb">
-        <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
-        {% block breadcrumbs %}
-        {% endblock %}
-    </ol>
-{% endblock %}
-
+        <ol class="breadcrumb">
+            <a class="breadcrumb-item" href="{% url 'home' %}">Home</a>
+            {% block breadcrumbs %}
+            {% endblock %}
+        </ol>
+    {% endblock %}
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{% if message.tags %}{{ message.tags }}{% endif %}" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     {% block content %}
     {% endblock %}
 </div>

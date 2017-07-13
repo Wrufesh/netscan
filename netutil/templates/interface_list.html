@@ -8,9 +8,10 @@
 {% endblock %}
 
 {% block content %}
-
+     {% if has_airodumps %}
+            <a href="{% url 'kill-airodumps' %}" class="btn btn-lg btn-danger">Kill Existing Airodumps</a>
+        {% endif %}
     {% for object in object_list %}
-
         <div class="card">
             <div class="card-block">
                 <a href="#">
@@ -18,7 +19,8 @@
                         {% if object.0 %}
                             <button class="btn btn-sm btn-success">Wireless Interface</button>
                         {% endif %}
-                        <a class="btn btn-lg btn-info float-sm-right" href="{% url 'evil-twin' object.1 %}">Scan for Rouge</a>
+                        <a class="btn btn-lg btn-info float-sm-right" href="{% url 'evil-twin' object.1 %}">Scan for
+                            Rouge</a>
                     </h4>
 
                 </a>

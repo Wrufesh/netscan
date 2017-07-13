@@ -132,4 +132,4 @@ MEDIA_URL = '/media/'
 CELERY_BACKEND = 'redis://localhost:6379/0'
 CELERY_BROKER = 'redis://localhost:6379/0'
 
-
+AIRODUMP_CSV_ROOT = os.path.join(BASE_DIR, 'airodump_csvs')

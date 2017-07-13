@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.shortcuts import render, redirect
 
 # Create your views here.
 from netscan.utils.helpers import get_connected_interface_name, get_connected_network_detail, \
-    get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode
+    get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode, kill_airodump_proc, has_airodumps
 
 interface_model = {
     'interfaces' : [],
@@ -21,9 +22,14 @@ def index(request):
 
     return render(request, 'index.html', context)
 
+def kill_airodumps(request):
+    kill_airodump_proc()
+    return redirect('interface-list')
+
 
 def interface_list_view(request):
     context = dict()
+    context['has_airodumps'] = has_airodumps()
     context["object_list"] = [(True, interface) if interface.startswith('w') else (False, interface) for interface in
                               get_network_interface_list()]
     return render(request, 'interface_list.html', context)
@@ -43,8 +49,16 @@ def connected_hosts(request):
 
 def scan_for_rouge(request, interface):
     context = dict()
-    # if turn_on_monitor_mode(interface):
-    #     pass
-    # else
+    if turn_on_monitor_mode(interface)[0]:
+        pass
+    else:
+        messages.info(
+            request,
+            "Monitor mode not supported for the interface '%s'" % interface
+        )
+        return redirect('interface-list')
     context['output_list'] = turn_on_monitor_mode(interface)
     return render(request, 'rouge.html', context)
+
+def start_monitor(reuest, monitor_interface):
+    pass

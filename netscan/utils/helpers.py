@@ -1,7 +1,9 @@
 import netifaces
+import os
 import re
 import subprocess
 
+from netscan.settings import AIRODUMP_CSV_ROOT
 from netscan.utils.connected_host_detail import Netscan
 
 
@@ -51,7 +53,7 @@ def turn_on_monitor_mode(interface):
         'airmon-ng start %s' % interface,
         shell=True,
         stdout=subprocess.PIPE,
-        universal_newlines = True
+        universal_newlines=True
     )
     output_list = []
     for line in cmd.stdout:
@@ -62,3 +64,16 @@ def turn_on_monitor_mode(interface):
             else:
                 break
     return (False, None)
+
+
+def has_airodumps():
+    for dirpath, dirnames, files in os.walk(AIRODUMP_CSV_ROOT):
+        if files:
+            return True
+        if not files:
+            return False
+
+
+def kill_airodump_proc():
+    # todo kill and delete
+    pass

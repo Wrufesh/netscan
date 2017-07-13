@@ -18,14 +18,16 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from netutil.views import index, interface_list_view, connected_hosts, scan_for_rouge
+from netutil.views import index, interface_list_view, connected_hosts, scan_for_rouge, kill_airodumps
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='home'),
+    url(r'^kill-airodumps$', kill_airodumps, name='kill-airodumps'),
     url(r'^interfaces$', interface_list_view, name='interface-list'),
     url(r'^network-hosts$', connected_hosts, name='connected-hosts'),
-    url(r'^evil-twin/(?P<interface>[\w-]+)/$', scan_for_rouge, name='evil-twin')
+    url(r'^evil-twin/(?P<interface>[\w-]+)/$', scan_for_rouge, name='evil-twin'),
+    url(r'^start-monitor/(?P<monitor_interface>[\w-]+)/$', scan_for_rouge, name='evil-twin')
     ]
 
 if settings.DEBUG:
