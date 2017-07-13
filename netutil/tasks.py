@@ -9,7 +9,7 @@ from netscan.settings import AIRODUMP_CSV_ROOT
 def start_airodump(monitor_interface):
     output_path = os.path.join(AIRODUMP_CSV_ROOT, monitor_interface)
     subprocess.Popen(
-        'airodump-ng %s -w %s --write-interval 30 -o csv' % (
+        'airodump-ng %s -w %s --write-interval 10 -o csv' % (
             monitor_interface,
             output_path
         ),

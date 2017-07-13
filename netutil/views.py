@@ -4,9 +4,10 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from netscan.utils.helpers import get_connected_interface_name, get_connected_network_detail, \
     get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode, kill_airodump_proc, has_airodumps
+from netutil.tasks import start_airodump
 
 interface_model = {
-    'interfaces' : [],
+    'interfaces': [],
     # interfaces list example
     # {
     #     'name': '',
@@ -21,6 +22,7 @@ def index(request):
         context["connection_detail"] = get_connected_network_detail()
 
     return render(request, 'index.html', context)
+
 
 def kill_airodumps(request):
     kill_airodump_proc()
@@ -48,10 +50,9 @@ def connected_hosts(request):
 
 
 def scan_for_rouge(request, interface):
-    context = dict()
     if turn_on_monitor_mode(interface)[0]:
-        # todo start monitor celery task
-        return redirect('start_monitor', monitor_interface=turn_on_monitor_mode(interface)[1])
+        start_airodump.delay(turn_on_monitor_mode(interface)[1])
+        return redirect('start-monitor', monitor_interface=turn_on_monitor_mode(interface)[1])
     else:
         messages.info(
             request,

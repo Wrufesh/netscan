@@ -1,8 +1,12 @@
+import glob
 import netifaces
 import os
 import re
 import subprocess
 
+from celery.events.state import State
+
+from netscan.celery import app
 from netscan.settings import AIRODUMP_CSV_ROOT
 from netscan.utils.connected_host_detail import Netscan
 
@@ -75,5 +79,19 @@ def has_airodumps():
 
 
 def kill_airodump_proc():
-    # todo kill and delete
-    pass
+    app.control.revoke([
+        uuid
+        for uuid, _ in
+        State().tasks_by_type('start_airodump')
+    ])
+
+    import os, shutil
+    folder = AIRODUMP_CSV_ROOT
+    for the_file in os.listdir(folder):
+        file_path = os.path.join(folder, the_file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+                # elif os.path.isdir(file_path): shutil.rmtree(file_path)
+        except Exception as e:
+            print(e)
