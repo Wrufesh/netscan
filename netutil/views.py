@@ -15,7 +15,7 @@ def index(request):
 
 def interface_list_view(request):
     context = dict()
-    context["object_list"] = [(True, interface) if interface.startswith('wl') else (False, interface) for interface in
+    context["object_list"] = [(True, interface) if interface.startswith('w') else (False, interface) for interface in
                               get_network_interface_list()]
     return render(request, 'interface_list.html', context)
 
