@@ -128,3 +128,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, '..', '..', 'static')
 MEDIA_ROOT = os.path.join(BASE_DIR, '..', '..', 'media')
 print(STATIC_ROOT)
 MEDIA_URL = '/media/'
+
+CELERY_BACKEND = 'redis://localhost:6379/0'
+CELERY_BROKER = 'redis://localhost:6379/0'
+
+
