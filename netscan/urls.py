@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls import url, include
 from django.contrib import admin
 
-from netutil.views import index, interface_list_view, connected_hosts, scan_for_rouge, kill_airodumps
+from netutil.views import index, interface_list_view, connected_hosts, scan_for_rouge, kill_airodumps, start_monitor
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^interfaces$', interface_list_view, name='interface-list'),
     url(r'^network-hosts$', connected_hosts, name='connected-hosts'),
     url(r'^evil-twin/(?P<interface>[\w-]+)/$', scan_for_rouge, name='evil-twin'),
-    url(r'^start-monitor/(?P<monitor_interface>[\w-]+)/$', scan_for_rouge, name='start-monitor')
+    url(r'^start-monitor/(?P<monitor_interface>[\w-]+)/$', start_monitor, name='start-monitor')
     ]
 
 if settings.DEBUG:

@@ -1,4 +1,3 @@
-import glob
 import netifaces
 import os
 import re
@@ -9,6 +8,7 @@ from celery.events.state import State
 from netscan.celery import app
 from netscan.settings import AIRODUMP_CSV_ROOT
 from netscan.utils.connected_host_detail import Netscan
+from netutil.models import MyAccessPoint
 
 
 def get_network_interface_list():
@@ -85,7 +85,7 @@ def kill_airodump_proc():
         State().tasks_by_type('start_airodump')
     ])
 
-    import os, shutil
+    import os
     folder = AIRODUMP_CSV_ROOT
     for the_file in os.listdir(folder):
         file_path = os.path.join(folder, the_file)
@@ -95,3 +95,26 @@ def kill_airodump_proc():
                 # elif os.path.isdir(file_path): shutil.rmtree(file_path)
         except Exception as e:
             print(e)
+
+
+def parse_file(file_name):
+    import csv
+    filepath = os.path.join(AIRODUMP_CSV_ROOT, file_name)
+    data = []
+    with open(filepath,  newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
+
+        # my_aps = (obj.ssid for obj in MyAccessPoint.objects.all())
+
+        row_len = None
+
+        for row in spamreader:
+            if row_len:
+                if row_len != len(row):
+                    break
+
+            row_len = len(row)
+            data.append(row)
+            # print(', '.join(row))
+            # print(row)
+    return data

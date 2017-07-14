@@ -3,7 +3,9 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from netscan.utils.helpers import get_connected_interface_name, get_connected_network_detail, \
-    get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode, kill_airodump_proc, has_airodumps
+    get_network_interface_list, get_connected_hosts_detail, turn_on_monitor_mode, kill_airodump_proc, has_airodumps, \
+    parse_file
+from netutil.models import MyAccessPoint
 from netutil.tasks import start_airodump
 
 interface_model = {
@@ -63,4 +65,7 @@ def scan_for_rouge(request, interface):
 
 def start_monitor(request, monitor_interface):
     context = dict()
+    context['my_aps'] = [obj.ssid for obj in MyAccessPoint.objects.all()]
+    context['data'] = parse_file("%s_01.csv" % monitor_interface)
+
     return render(request, 'rouge.html', context)

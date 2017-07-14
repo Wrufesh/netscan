@@ -1,14 +1,34 @@
 {% extends '_base.html' %}
-{% load i18n %}
+{% load i18n custom%}
 
 {% block title %} Evil Twin Detector {% endblock %}
 
 {% block breadcrumbs %}
     <a class="breadcrumb-item active" href="#">Evil Twin Detector</a>
 {% endblock %}
+{% block extrahead %}
+    <meta http-equiv="refresh" content="10"/>
+{% endblock %}
 
 {% block content %}
-{#    {{ output_list }}#}
-    This is rouge html page
+    {#    {{ output_list }}#}
+    <table class="table">
+        {% for row in data %}
+            {% if forloop.first %}
+                <th>
+                    {% for r_d in row %}
+                        <td>{{ r_d }}</td>
+                    {% endfor %}
+                </th>
+
+            {% else %}
+                <tr class="{% row_class row.13 my_aps %}">
+                    {% for r_d in row %}
+                        <td>{{ r_d }}</td>
+                    {% endfor %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
 
 {% endblock %}
