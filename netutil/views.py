@@ -66,6 +66,6 @@ def scan_for_rouge(request, interface):
 def start_monitor(request, monitor_interface):
     context = dict()
     context['my_aps'] = [obj.ssid for obj in MyAccessPoint.objects.all()]
-    context['data'] = parse_file("%s_01.csv" % monitor_interface)
+    context['data'] = parse_file("%s-01.csv" % monitor_interface)
 
     return render(request, 'rouge.html', context)

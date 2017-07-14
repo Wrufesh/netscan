@@ -100,6 +100,7 @@ def kill_airodump_proc():
 def parse_file(file_name):
     import csv
     filepath = os.path.join(AIRODUMP_CSV_ROOT, file_name)
+    print(file_name)
     data = []
     with open(filepath,  newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=',', quotechar='|')
