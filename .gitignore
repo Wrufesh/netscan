@@ -1,5 +1,6 @@
 *.pyc
 .idea/
+airodump_csvs/
 media/
 
 __pycache__
